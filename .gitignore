@@ -1,0 +1,12 @@
+
+ConsoleApplication1.vcxproj
+*.filters
+*.user
+*.tlog
+*.log
+*.pch
+*.obj
+*.pdb
+*.idb
+*.cpp
+pch.h
