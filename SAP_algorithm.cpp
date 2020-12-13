@@ -69,6 +69,9 @@ std::vector<Person*> SortByMinX(std::vector<Person*>& v) {
 
 std::vector<std::vector<Person*>> Algorithm1(std::vector<Person*>& axisList) {
 	//создать новый вектор где будут храниться пары
+	
+	axisList = SortByMinX(axisList);
+	
 	std::vector<std::vector<Person*>> allPairs;
 	std::vector<Person*> activeList; //temporary list
 
@@ -113,10 +116,10 @@ int main()
 	Person* D(0);
 	D = D->create(Point(18, 25), "D");
 
-	Person* E(0);
-	E = E->create(Point(11, 12), "E");
+	/*Person* E(0);
+	E = E->create(Point(11, 12), "E");*/
 
-	std::vector<Person*> vec{B, D, A, C, E};
+	std::vector<Person*> vec{B, D, A, C};
 	
 
 	/*std::sort(vec.begin(), vec.end(),
@@ -158,8 +161,7 @@ int main()
 	//	}
 	//}
 
-	auto axisList = SortByMinX(vec);
-	auto check = Algorithm1(axisList);
+	auto check = Algorithm1(vec);
 	for (int i = 0; i < check.size(); ++i) {
 	
 		cout << check[i].front()->name;
