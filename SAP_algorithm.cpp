@@ -17,79 +17,51 @@ public:
 	int Min, Max;
 };
 
-class Person {
+class Quad {
 public:
-	Person(Point point, const char * name):
+	Quad(Point point, const char * name):
 	point(point),
 		name(name)
 	{
 	}
-	Person* create(Point pos, const char*  name) {
-		return new Person(pos, name);
+	Quad* create(Point pos, const char*  name) {
+		return new Quad(pos, name);
 	}
 	int id;
 	Point point;
 	const char * name;
 };
 
-std::vector<Person*> SortByMinX(std::vector<Person*>& v) {
+std::vector<Quad*> SortByMinX(std::vector<Quad*>& v) {
 	
 	std::sort(v.begin(), v.end(),
-		[=](Person  * a, Person * b) -> bool
+		[=](Quad  * a, Quad * b) -> bool
 	{ return a->point.Min < b->point.Min; });
 	
 	return  v;
 }
 
-//
-//void Algorithm(std::vector<Person>& axisList) {
-//
-//	std::vector<Person> activeList; //temporary list
-//
-//	for (auto i = 0; i < axisList.size(); ++i) {
-//		for (auto j = 0; j < activeList.size(); ++j) {
-//			cout << "comparing " << axisList[i].name << " and " << activeList[j].name << endl;
-//			if (axisList[i].point.Min > (activeList[j].point.Max)) {
-//				cout << " bitch is poped " << activeList[j].name << endl;
-//				activeList.erase(activeList.begin() + j);//////////////////////ÑÓÊÀ ÍÅÓÆÅËÈ İÒÎ ĞÀÁÎÒÀŞÙÈÉ ÂÀĞÈÀÍÒ ÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀ
-//				j--;
-//			}
-//			else {
-//				std::cout << " reported pair " << axisList[i].name << " and " << activeList[j].name << std::endl;
-//			}
-//		}
-//		cout << axisList[i].name << " is added to activeList  " << endl;
-//		activeList.push_back(axisList[i]);
-//	}
-//
-//	for (auto m : activeList) {
-//		cout << m.name << endl;
-//	}
-//}
-
-std::vector<std::vector<Person*>> Algorithm1(std::vector<Person*>& axisList) {
-	//ñîçäàòü íîâûé âåêòîğ ãäå áóäóò õğàíèòüñÿ ïàğû
+std::vector<std::vector<Quad*>> Algorithm(std::vector<Quad*>& axisList) {
 	
 	axisList = SortByMinX(axisList);
 	
-	std::vector<std::vector<Person*>> allPairs;
-	std::vector<Person*> activeList; //temporary list
+	std::vector<std::vector<Quad*>> allPairs;
+	std::vector<Quad*> activeList; //temporary list
 
 	for (auto i = 0; i < axisList.size(); ++i) {
 		for (auto j = 0; j < activeList.size(); ++j) {
 			cout << "comparing " << axisList[i]->name << " and " << activeList[j]->name << endl;
 			if (axisList[i]->point.Min > (activeList[j]->point.Max)) {
-				cout << " bitch is poped " << activeList[j]->name << endl;
-				activeList.erase(activeList.begin() + j);//////////////////////Ñ ÍÅÓÆÅËÈ İÒÎ ĞÀÁÎÒÀŞÙÈÉ ÂÀĞÈÀÍÒ ÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀ
+				cout << " object is poped " << activeList[j]->name << endl;
+				activeList.erase(activeList.begin() + j);
 				j--;
 			}
 			else {
 				std::cout << " reported pair " << axisList[i]->name << " and " << activeList[j]->name << std::endl;
-				std::vector<Person*> mpair;
+				std::vector<Quad*> mpair;
 				mpair.push_back(axisList[i]);
 				mpair.push_back(activeList[j]);
 				allPairs.push_back(mpair);
-				///ñîçäàòü íîâûé âåêòîğ ïàğû è äîáàâèòü åãî â âåêòîğ ïàğ
 			}
 		}
 		cout << axisList[i]->name << " is added to activeList  " << endl;
@@ -99,69 +71,26 @@ std::vector<std::vector<Person*>> Algorithm1(std::vector<Person*>& axisList) {
 	return allPairs;
 }
 
-
 int main()
 {
-	Person* A(0);
+	Quad* A(0);
 	A = A->create(Point(1, 10), "A");
 
 	
-	Person* B(0);
+	Quad* B(0);
 	B = B->create(Point(5, 31), "B");
 	
-	Person* C(0);
+	Quad* C(0);
 	C = C->create(Point(7, 13), "C");
 
 	
-	Person* D(0);
+	Quad* D(0);
 	D = D->create(Point(18, 25), "D");
 
-	/*Person* E(0);
-	E = E->create(Point(11, 12), "E");*/
-
-	std::vector<Person*> vec{B, D, A, C};
+	std::vector<Quad*> vectorToCheck{B, D, A, C};
 	
-
-	/*std::sort(vec.begin(), vec.end(),
-		[](Person const & a, Person const & b) -> bool
-	{ return a.id < b.id; });
-
-	for (auto &i : vec) {
-		cout << i.id << endl;
-	}*/
-
-
-
-
-	//
-	//std::vector <Person> pair1;
-	//pair1.push_back(D);
-	//pair1.push_back(A);
-
-	//std::vector <Person> pair2;
-	//pair2.push_back(B);
-	//pair2.push_back(C);
-
-	//std::vector <Person> pair3;
-	//pair3.push_back(D);
-	//pair3.push_back(D);
-
-	//
-	//std::vector<std::vector<Person>> vectorOfPairs;
-
-	//vectorOfPairs.push_back(pair2);
-	//vectorOfPairs.push_back(pair1);
-	//vectorOfPairs.push_back(pair3);
-
-
-	//for (int i = 0; i < vectorOfPairs.size(); ++i) {
-	//	cout << vectorOfPairs[i].capacity() << endl;
-	//	if (vectorOfPairs[i].front().name == vectorOfPairs[i].back().name) {
-	//		cout << "SAME SAME SAME " << vectorOfPairs[i].front().name << " and " << vectorOfPairs[i].back().name << endl;
-	//	}
-	//}
-
-	auto check = Algorithm1(vec);
+	auto check = Algorithm(vectorToCheck);
+	
 	for (int i = 0; i < check.size(); ++i) {
 	
 		cout << check[i].front()->name;
